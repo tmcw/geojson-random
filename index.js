@@ -1,18 +1,15 @@
-#!/usr/bin/env node
+module.exports = function(count, type) {
+    switch (type) {
+        case 'point':
+            var features = [];
+            for (var i = 0; i < count; i++) { features.push(feature(point())); }
+            return collection(features);
+    }
+};
 
-var count = (process.argv[2] && parseInt(process.argv[2], 10)) || 100;
-var type = process.argv[3] || 'point';
-
-switch (type) {
-    case 'point':
-        var features = [];
-        for (var i = 0; i < count; i++) { features.push(feature(point())); }
-        console.log(JSON.stringify(collection(features)));
-        break;
-}
-
-function lon() { return (Math.random() - 0.5) * 360; }
-function lat() { return (Math.random() - 0.5) * 180; }
+function rnd() { return Math.random() - 0.5; }
+function lon() { return rnd() * 360; }
+function lat() { return rnd() * 180; }
 function point() { return { type: 'Point', coordinates: [lon(), lat()] }; }
 function feature(geom) {
     return { type: 'Feature', geometry: geom, properties: {} };

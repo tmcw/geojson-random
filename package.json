@@ -4,10 +4,10 @@
   "description": "generate random geojson features",
   "main": "index.js",
   "bin": {
-    "geojson-random": "index.js"
+    "geojson-random": "geojson-random"
   },
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tap test.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/tmcw/geojson-random/issues"
   },
-  "homepage": "https://github.com/tmcw/geojson-random"
+  "homepage": "https://github.com/tmcw/geojson-random",
+  "devDependencies": {
+    "tape": "~2.13.4"
+  }
 }

@@ -2,5 +2,7 @@
 
 var count = (process.argv[2] && parseInt(process.argv[2], 10)) || 100;
 var type = process.argv[3] || 'point';
+var max_radial_length = process.argv[4] || 0.5;
+var num_vertices = process.argv[5] || 12;
 
-console.log(JSON.stringify(require('./')(count, type)));
+console.log(JSON.stringify(require('./')(count, type, max_radial_length, num_vertices)));

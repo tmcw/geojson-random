@@ -15,7 +15,7 @@ module.exports = function(count, type, max_radial_length, num_vertices) {
 				var vertices = [];
 
 				// generate some random numbers
-				var circle_offsets = Array.apply(null, new Array(parseInt(num_vertices))).map(Math.random);				
+				var circle_offsets = Array.apply(null, new Array(parseInt(num_vertices + 1))).map(Math.random);				
 
 				// sum them in ascending order
 				circle_offsets.forEach(function(cur, index, arr) {
@@ -33,8 +33,8 @@ module.exports = function(count, type, max_radial_length, num_vertices) {
 					]);				
 				});
 
-				// close the ring
-				vertices.push(vertices[0]);
+				// discard final vertex, close the ring
+				vertices[vertices.length - 1] = vertices[0];
 
 				// center the polygon around something				
 				var hub = [lon(), lat()];				

@@ -6,46 +6,43 @@ module.exports = function(count, type, max_radial_length, num_vertices) {
             return collection(features);
 
         case 'polygon':    
-        	if (typeof max_radial_length === 'undefined') max_radial_length = 0.5;
-        	if (typeof num_vertices === 'undefined') num_vertices = 6;   
+            var features = [];
 
-			var features = [];
+            for (var i = 0; i < count; i++) {
+                var vertices = [];
 
-			for (var i = 0; i < count; i++) {
-				var vertices = [];
+                // generate some random numbers
+                var circle_offsets = Array.apply(null, new Array(parseInt(num_vertices + 1))).map(Math.random);             
 
-				// generate some random numbers
-				var circle_offsets = Array.apply(null, new Array(parseInt(num_vertices + 1))).map(Math.random);				
+                // sum them in ascending order
+                circle_offsets.forEach(function(cur, index, arr) {
+                    arr[index] = (index>0) ? cur + arr[index - 1] : cur;
+                });             
 
-				// sum them in ascending order
-				circle_offsets.forEach(function(cur, index, arr) {
-					arr[index] = (index>0) ? cur + arr[index - 1] : cur;
-				});				
+                // lurch in a radial fashion
+                circle_offsets.forEach(function(cur, index){                                        
+                    cur = cur * 2 * Math.PI / circle_offsets[circle_offsets.length - 1];
 
-				// lurch in a radial fashion
-				circle_offsets.forEach(function(cur, index){										
-					cur = cur * 2 * Math.PI / circle_offsets[circle_offsets.length - 1];
+                    var radial_scaler = Math.random();                                              
+                    vertices.push([
+                        radial_scaler * max_radial_length * Math.sin(cur),
+                        radial_scaler * max_radial_length * Math.cos(cur)
+                    ]);             
+                });
 
-					var radial_scaler = Math.random();												
-					vertices.push([
-						radial_scaler * max_radial_length * Math.sin(cur),
-						radial_scaler * max_radial_length * Math.cos(cur)
-					]);				
-				});
+                // discard final vertex, close the ring
+                vertices[vertices.length - 1] = vertices[0];
 
-				// discard final vertex, close the ring
-				vertices[vertices.length - 1] = vertices[0];
+                // center the polygon around something              
+                var hub = [lon(), lat()];               
+                vertices = vertices.map(function(cur, index){
+                    return [cur[0] + hub[0], cur[1] + hub[1]];
+                });
 
-				// center the polygon around something				
-				var hub = [lon(), lat()];				
-				vertices = vertices.map(function(cur, index){
-					return [cur[0] + hub[0], cur[1] + hub[1]];
-				});
+                features.push(feature(polygon([vertices])));
+            }
 
-				features.push(feature(polygon([vertices])));
-			}
-
-			return collection(features);
+            return collection(features);
     }
 };
 

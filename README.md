@@ -1,5 +1,7 @@
 # geojson-random
 
+[![build status](https://secure.travis-ci.org/mapbox/geojson-random.png)](http://travis-ci.org/mapbox/geojson-random)
+
 Generate random [GeoJSON](http://geojson.org/) features.
 
 Usable in [node.js](http://nodejs.org/) and in browsers with [browserify](http://browserify.org/).

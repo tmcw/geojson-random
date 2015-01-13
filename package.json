@@ -7,7 +7,7 @@
     "geojson-random": "geojson-random"
   },
   "scripts": {
-    "test": "tap test.js"
+    "test": "tape test.js"
   },
   "repository": {
     "type": "git",

@@ -72,8 +72,8 @@ function coordInBBBOX(bbox) {
         latSpan = bbox[3] - bbox[1],
         randInSpan = Math.random() * (lonSpan * latSpan);
     return [
-        randInSpan % (lonSpan) + bbox[0],
-        randInSpan / (latSpan) + bbox[1]];
+        (bbox[2] === bbox[0]) ? bbox[2] : randInSpan % (lonSpan) + bbox[0],
+        (bbox[3] === bbox[1]) ? bbox[1] : randInSpan / (latSpan) + bbox[1]];
 }
 
 function pointInBBBOX() {

@@ -33,6 +33,14 @@ test('random.point(bbox)', function(t) {
     t.end();
 });
 
+test('random.point(bbox zero width)', function(t) {
+    var randomPoints = geojsonRandom.point(1, [50, 50, 50, 60]);
+    t.equal(randomPoints.features.length, 1, '1 points');
+    var withBbox = randomPoints.features[0].geometry.coordinates;
+    t.equal(withBbox[0], 50, 'lon');
+    t.end();
+});
+
 test('random.polygon', function(t) {
     var randomPolygons = geojsonRandom.polygon(100);
     t.equal(randomPolygons.features.length, 100, '100 polygons');
@@ -54,3 +62,4 @@ test('random.polygon with bbox', function(t) {
 
     t.end();
 });
+

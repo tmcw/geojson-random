@@ -43,3 +43,14 @@ test('random.polygon', function(t) {
     t.equal(randomPolygonsHi.features[0].geometry.coordinates[0].length, 21, 'and have 21 positions in their outer rings');
     t.end();
 });
+
+test('random.polygon with bbox', function(t) {
+    var randomPolygonRing = geojsonRandom.polygon(1, 5, 5, [50, 50, 60, 60]).features[0].geometry.coordinates[0];
+
+    randomPolygonRing.forEach(function(withBbox) {
+        t.ok(withBbox[0] >= 40 && withBbox[0] <= 70, 'lon');
+        t.ok(withBbox[1] >= 40 && withBbox[1] <= 70, 'lat');
+    });
+
+    t.end();
+});

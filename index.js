@@ -17,7 +17,7 @@ module.exports.point = function(count, bbox) {
     return collection(features);
 };
 
-module.exports.polygon = function(count, num_vertices, max_radial_length) {
+module.exports.polygon = function(count, num_vertices, max_radial_length, bbox) {
     if (typeof num_vertices !== 'number') num_vertices = 10;
     if (typeof max_radial_length !== 'number') max_radial_length = 10;
     var features = [];
@@ -31,7 +31,7 @@ module.exports.polygon = function(count, num_vertices, max_radial_length) {
         vertices[vertices.length - 1] = vertices[0]; // close the ring
 
         // center the polygon around something
-        vertices = vertices.map(vertexToCoordinate([lon(), lat()]));
+        vertices = vertices.map(vertexToCoordinate(position(bbox)));
         features.push(feature(polygon([vertices])));
     }
 

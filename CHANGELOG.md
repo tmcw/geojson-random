@@ -1,4 +1,4 @@
-# 1.0.1
+# 0.2.2
 
 * Fix `coordInBBBOX` function to fix the output of points within small bounding
   boxes.

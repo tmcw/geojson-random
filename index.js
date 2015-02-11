@@ -68,12 +68,9 @@ function point(coordinates) {
 }
 
 function coordInBBBOX(bbox) {
-    var lonSpan = bbox[2] - bbox[0],
-        latSpan = bbox[3] - bbox[1],
-        randInSpan = Math.random() * (lonSpan * latSpan);
     return [
-        (bbox[2] === bbox[0]) ? bbox[2] : randInSpan % (lonSpan) + bbox[0],
-        (bbox[3] === bbox[1]) ? bbox[1] : randInSpan / (latSpan) + bbox[1]];
+        (Math.random() * (bbox[2] - bbox[0])) + bbox[0],
+        (Math.random() * (bbox[3] - bbox[1])) + bbox[1]];
 }
 
 function pointInBBBOX() {

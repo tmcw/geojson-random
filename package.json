@@ -25,5 +25,9 @@
   "homepage": "https://github.com/tmcw/geojson-random",
   "devDependencies": {
     "tape": "~2.13.4"
+  },
+  "dependencies": {
+    "from2": "^2.1.0",
+    "geojson-stream": "0.0.0"
   }
 }

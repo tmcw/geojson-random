@@ -9,6 +9,9 @@ Usable in [node.js](http://nodejs.org/) and in browsers with [browserify](http:/
     npm install -g geojson-random
     geojson-random
 
+    # special fast-mode for points
+    geojson-random 10000 point-stream
+
 ## api
 
 ```js

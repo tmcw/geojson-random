@@ -35,7 +35,7 @@ An optional `bbox` parameter should be an array of numbers representing
 a [bbox](http://geojson.org/geojson-spec.html#bounding-boxes) in WSEN order,
 and if given, the position will reside within its bounds.
 
-### `random.polygon(count, num_vertices, max_radial_length)`
+### `random.polygon(count, num_vertices, max_radial_length, bbox)`
 
 Return `count` polygons wrapped in a FeatureCollection.
 
@@ -44,3 +44,4 @@ Return `count` polygons wrapped in a FeatureCollection.
 * `max_radial_length` is the maximum number of decimal degrees latitude
   or longitude that a vertex can reach out of the center of the Polygon.
   Default is `10`.
+* `bbox` (Optional) Bounding box in [minX, minY, maxX, maxY] order.

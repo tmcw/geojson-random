@@ -73,7 +73,13 @@ module.exports.lineString = function(count, num_vertices, max_length, max_rotati
         var startingPoint = position(bbox);
         var vertices = [startingPoint];
         for (var j = 0; j < num_vertices - 1; j++) {
-            var angle = Math.random() * max_rotation;
+            var priorAngle = (j === 0)
+            ? Math.random() * 2 * Math.PI
+            : Math.tan(
+              (vertices[j][1] - vertices[j - 1][1]) /
+              (vertices[j][0] - vertices[j - 1][0])
+            )
+            var angle = priorAngle + (Math.random() - 0.5) * max_rotation * 2;
             var distance = Math.random() * max_length;
             vertices.push([
                 vertices[j][0] + distance * Math.cos(angle),

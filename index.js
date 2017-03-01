@@ -1,7 +1,7 @@
 var from = require('from2');
 
 module.exports = function() {
-    throw new Error('call .point() or .polygon() instead');
+    throw new Error('call .point(), .lineString(), or .polygon() instead');
 };
 
 function position(bbox) {
@@ -63,6 +63,29 @@ module.exports.polygon = function(count, num_vertices, max_radial_length, bbox) 
     return collection(features);
 };
 
+module.exports.lineString = function(count, num_vertices, max_length, max_rotation, bbox) {
+    if (typeof num_vertices !== 'number' || num_vertices < 2) num_vertices = 10;
+    if (typeof max_length !== 'number') max_length = 0.0001;
+    if (typeof max_rotation !== 'number') max_rotation = Math.PI / 8;
+
+    var features = [];
+    for (i = 0; i < count; i++) {
+        var startingPoint = position(bbox);
+        var vertices = [startingPoint];
+        for (var j = 0; j < num_vertices - 1; j++) {
+            var angle = Math.random() * max_rotation;
+            var distance = Math.random() * max_length;
+            vertices.push([
+                vertices[j][0] + distance * Math.cos(angle),
+                vertices[j][1] + distance * Math.sin(angle)
+            ]);
+        }
+        features.push(feature(lineString(vertices)));
+    }
+
+    return collection(features);
+};
+
 
 function vertexToCoordinate(hub) {
     return function(cur, index) { return [cur[0] + hub[0], cur[1] + hub[1]]; };
@@ -111,5 +134,12 @@ function collection(f) {
     return {
         type: 'FeatureCollection',
         features: f
+    };
+}
+
+function lineString(coordinates) {
+    return {
+      type: 'LineString',
+      coordinates: coordinates
     };
 }

@@ -1,3 +1,7 @@
+# 0.3.0
+
+* Add pointStream method
+
 # 0.2.2
 
 * Fix `coordInBBBOX` function to fix the output of points within small bounding

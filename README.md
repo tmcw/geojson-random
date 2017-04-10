@@ -1,5 +1,7 @@
 # geojson-random
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tmcw/geojson-random.svg)](https://greenkeeper.io/)
+
 [![build status](https://secure.travis-ci.org/mapbox/geojson-random.png)](http://travis-ci.org/mapbox/geojson-random)
 
 Generate random [GeoJSON](http://geojson.org/) features.

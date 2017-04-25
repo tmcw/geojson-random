@@ -46,3 +46,18 @@ Return `count` polygons wrapped in a FeatureCollection.
   or longitude that a vertex can reach out of the center of the Polygon.
   Default is `10`.
 * `bbox` (Optional) Bounding box in [minX, minY, maxX, maxY] order.
+
+### `random.lineString(count, num_vertices, max_length, max_rotation, bbox)`
+
+Return `count` line strings wrapped in a FeatureCollection.
+
+* `num_vertices` is default `10` and is how many coordinates each LineString
+  will contain.
+* `max_length` is the maximum number of decimal degrees that a vertex can be
+  from its predecessor
+  Default is `0.0001`.
+* `max_rotation` is the maximum number of radians that a line segment can turn
+  from the previous segment.
+  Default is `Math.PI / 8`.
+* `bbox` (Optional) Bounding box in [minX, minY, maxX, maxY] order. This
+  parameter is only applied to the starting point of the line.

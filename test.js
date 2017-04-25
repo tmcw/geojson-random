@@ -1,4 +1,4 @@
-var test = require('tape'),
+var test = require('tap').test,
     geojsonRandom = require('./');
 
 test('random.position()', function(t) {

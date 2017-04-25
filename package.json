@@ -7,7 +7,7 @@
     "geojson-random": "geojson-random"
   },
   "scripts": {
-    "test": "tape test.js"
+    "test": "tap test.js"
   },
   "repository": {
     "type": "git",
@@ -24,10 +24,17 @@
   },
   "homepage": "https://github.com/tmcw/geojson-random",
   "devDependencies": {
-    "tape": "~4.6.3"
+    "cz-conventional-changelog": "^2.0.0",
+    "standard-version": "^4.0.0",
+    "tap": "^10.3.2"
   },
   "dependencies": {
     "from2": "^2.1.0",
     "geojson-stream": "0.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

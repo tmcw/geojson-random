@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/node-geojson/geojson-random",
   "devDependencies": {
-    "cz-conventional-changelog": "^2.0.0",
     "eslint": "^5.12.1",
     "standard-version": "^4.0.0",
     "tap": "^12.4.0"

@@ -7,12 +7,12 @@
     "geojson-random": "geojson-random"
   },
   "scripts": {
-    "test": "tap test.js",
+    "test": "eslint . && tap test.js",
     "release": "standard-version"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:tmcw/geojson-random.git"
+    "url": "https://github.com/node-geojson/geojson-random.git"
   },
   "keywords": [
     "geojson",
@@ -21,11 +21,12 @@
   "author": "Tom MacWright",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tmcw/geojson-random/issues"
+    "url": "https://github.com/node-geojson/geojson-random/issues"
   },
-  "homepage": "https://github.com/tmcw/geojson-random",
+  "homepage": "https://github.com/node-geojson/geojson-random",
   "devDependencies": {
     "cz-conventional-changelog": "^2.0.0",
+    "eslint": "^5.12.1",
     "standard-version": "^4.0.0",
     "tap": "^10.3.2"
   },

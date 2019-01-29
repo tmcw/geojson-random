@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/node-geojson/geojson-random/compare/v0.4.0...v0.5.0) (2019-01-29)
+
+
+### Features
+
+* Added bbox as command line argument. ([#19](https://github.com/node-geojson/geojson-random/issues/19)) ([d65f6bc](https://github.com/node-geojson/geojson-random/commit/d65f6bc))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/tmcw/geojson-random/compare/v0.3.0...v0.4.0) (2017-04-25)
 

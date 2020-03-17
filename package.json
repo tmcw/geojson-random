@@ -27,7 +27,7 @@
   "devDependencies": {
     "eslint": "^5.12.1",
     "standard-version": "^7.1.0",
-    "tap": "^13.0.3"
+    "tap": "^14.10.6"
   },
   "dependencies": {
     "from2": "^2.1.0",

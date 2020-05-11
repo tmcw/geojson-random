@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/node-geojson/geojson-random",
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "standard-version": "^7.1.0",
     "tap": "^14.10.7"
   },

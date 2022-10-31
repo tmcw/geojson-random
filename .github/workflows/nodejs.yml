@@ -1,0 +1,7 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  test:
+    uses: "placemark/workflows/.github/workflows/nodejs.yml@v2"

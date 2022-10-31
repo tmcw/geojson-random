@@ -1,45 +1,39 @@
-const from = require("from2");
+import {
+  Feature,
+  Point,
+  Geometry,
+  FeatureCollection,
+  LineString,
+} from "geojson";
 
-module.exports = function() {
-  throw new Error("call .point(), .lineString(), or .polygon() instead");
-};
+type Position2 = [number, number];
+type BBox4 = [number, number, number, number];
 
-function position(bbox) {
+export function position(bbox: BBox4): Position2 {
   if (bbox) return coordInBBBOX(bbox);
   else return [lon(), lat()];
 }
 
-module.exports.position = position;
-
-module.exports.point = function(count, bbox) {
+export function point(count: number, bbox: BBox4): FeatureCollection {
   const features = [];
   for (let i = 0; i < count; i++) {
-    features.push(feature(bbox ? point(position(bbox)) : point()));
+    features.push(feature(bbox ? makePoint(position(bbox)) : makePoint()));
   }
-  return collection(features);
-};
+  return {
+    type: "FeatureCollection",
+    features,
+  };
+}
 
-module.exports.pointStream = function(count, bbox) {
-  return from.obj(function(size, next) {
-    if (--count) {
-      next(null, feature(bbox ? point(position(bbox)) : point()));
-    } else {
-      next(null, null);
-    }
-  });
-};
-
-module.exports.polygon = function(
-  count,
-  num_vertices,
-  max_radial_length,
-  bbox
+export function polygon(
+  count: number,
+  num_vertices: number = 10,
+  max_radial_length: number = 10,
+  bbox: undefined | BBox4 = undefined
 ) {
-  if (typeof num_vertices !== "number") num_vertices = 10;
-  if (typeof max_radial_length !== "number") max_radial_length = 10;
   const features = [];
   for (let i = 0; i < count; i++) {
-    let vertices = [];
+    let vertices: Position2[] = [];
     const circle_offsets = Array.apply(null, new Array(num_vertices + 1)).map(
       Math.random
     );
@@ -52,31 +46,39 @@ module.exports.polygon = function(
       const radial_scaler = Math.random();
       vertices.push([
         radial_scaler * max_radial_length * Math.sin(cur),
-        radial_scaler * max_radial_length * Math.cos(cur)
+        radial_scaler * max_radial_length * Math.cos(cur),
       ]);
     });
     vertices[vertices.length - 1] = vertices[0]; // close the ring
 
     // center the polygon around something
     vertices = vertices.map(vertexToCoordinate(position(bbox)));
-    features.push(feature(polygon([vertices])));
+    features.push(
+      feature({
+        type: "Polygon",
+        coordinates: [vertices],
+      })
+    );
   }
 
-  return collection(features);
-};
+  return {
+    type: "FeatureCollection",
+    features,
+  };
+}
 
-module.exports.lineString = function(
-  count,
-  num_vertices,
-  max_length,
-  max_rotation,
-  bbox
-) {
+export function lineString(
+  count: number,
+  num_vertices: number,
+  max_length: number,
+  max_rotation: number,
+  bbox: BBox4
+): FeatureCollection<LineString> {
   if (typeof num_vertices !== "number" || num_vertices < 2) num_vertices = 10;
   if (typeof max_length !== "number") max_length = 0.0001;
   if (typeof max_rotation !== "number") max_rotation = Math.PI / 8;
 
-  const features = [];
+  const features: Feature<LineString>[] = [];
   for (let i = 0; i < count; i++) {
     const startingPoint = position(bbox);
     const vertices = [startingPoint];
@@ -92,17 +94,27 @@ module.exports.lineString = function(
       const distance = Math.random() * max_length;
       vertices.push([
         vertices[j][0] + distance * Math.cos(angle),
-        vertices[j][1] + distance * Math.sin(angle)
+        vertices[j][1] + distance * Math.sin(angle),
       ]);
     }
-    features.push(feature(lineString(vertices)));
+    features.push({
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: vertices,
+      },
+    });
   }
 
-  return collection(features);
-};
+  return {
+    type: "FeatureCollection",
+    features,
+  };
+}
 
-function vertexToCoordinate(hub) {
-  return function(cur) {
+function vertexToCoordinate(hub: Position2) {
+  return function (cur: Position2): Position2 {
     return [cur[0] + hub[0], cur[1] + hub[1]];
   };
 }
@@ -117,45 +129,24 @@ function lat() {
   return rnd() * 180;
 }
 
-function point(coordinates) {
+function makePoint(coordinates?: Position2): Point {
   return {
     type: "Point",
-    coordinates: coordinates || [lon(), lat()]
+    coordinates: coordinates || [lon(), lat()],
   };
 }
 
-function coordInBBBOX(bbox) {
+function coordInBBBOX(bbox: BBox4): Position2 {
   return [
     Math.random() * (bbox[2] - bbox[0]) + bbox[0],
-    Math.random() * (bbox[3] - bbox[1]) + bbox[1]
+    Math.random() * (bbox[3] - bbox[1]) + bbox[1],
   ];
 }
 
-function polygon(coordinates) {
-  return {
-    type: "Polygon",
-    coordinates: coordinates
-  };
-}
-
-function feature(geom) {
+function feature(geom: Geometry): Feature {
   return {
     type: "Feature",
     geometry: geom,
-    properties: {}
-  };
-}
-
-function collection(f) {
-  return {
-    type: "FeatureCollection",
-    features: f
-  };
-}
-
-function lineString(coordinates) {
-  return {
-    type: "LineString",
-    coordinates: coordinates
+    properties: {},
   };
 }

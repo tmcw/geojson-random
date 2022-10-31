@@ -1,7 +1,5 @@
 # geojson-random
 
-[![CircleCI](https://circleci.com/gh/node-geojson/geojson-random.svg?style=svg)](https://circleci.com/gh/node-geojson/geojson-random)
-
 Generate random [GeoJSON](http://geojson.org/) features.
 
 Usable in [node.js](http://nodejs.org/) and in browsers with [browserify](http://browserify.org/).
